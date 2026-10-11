@@ -1,11 +1,11 @@
-name : "p-chat-build"
+name: "p-chat-build"
 services:
   db:
     image: postgres:latest
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "postgres"
+      POSTGRES_DB: "p-chat-build"
     ports:
       - "5432:5432"
     restart: always
