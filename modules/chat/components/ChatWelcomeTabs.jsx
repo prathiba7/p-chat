@@ -45,33 +45,31 @@ const CHAT_TAB_MESSAGE = [
 
 export const ChatWelcomeTabs = ({userName,onMessageSelect}) => {
     const [activeTab,setActiveTab]=useState(0)
-  return (
-    <div className='flex flex-col items-center justify-center px-4'>
-        <div className='w-full max-w-3xl space-y-8'>
-            <h1 className='text-2xl font-semibold'>
-                       How can i help you ,{userName.slice(0,userName.indexOf(""))|| userName}?
+  return (    <div className='flex w-full flex-col items-center justify-center px-2 sm:px-4'>
+        <div className='w-full max-w-3xl space-y-6 sm:space-y-8'>
+            <h1 className='text-4xl font-semibold sm:text-2xl'>
+                How can I help you, {userName?.split(' ')[0] || 'there'}?
             </h1>
-            <div className='flex flex-wrap gap-2 w-full'>
+            <div className='flex w-full flex-wrap gap-2'>
                 {CHAT_TAB_MESSAGE?.map((tab,index)=>(
                         <Button
                         key={tab.tabName}
                         variant={activeTab ===index? 'default':"secondary"}
                         onClick={()=>setActiveTab(index)}
-                        className="w-[110px] justify-start'"
+                        className="min-w-[110px] flex-1 justify-start"
                         >
                             {tab.icon}
                             <span className='ml-2'>{tab.tabName}</span>
 
                         </Button>
                 ))}
-                        
             </div>
-            <div className='space-y-3 w-full min-h-[240px]'>
+            <div className='w-full min-h-[200px] space-y-3 sm:min-h-[240px]'>
                 {CHAT_TAB_MESSAGE[activeTab].messages.map((message,index)=>(
                     <div key={index}>
                         <button
                         onClick={()=>onMessageSelect(message)}
-                        className={"w-full text-left text-sm text-muted-foreground hover:text-primary transition-colors duration-300 ease-in-out py-2"}
+                        className={"w-full py-2 text-left text-sm text-muted-foreground transition-colors duration-300 ease-in-out hover:text-primary"}
                          >
                             {message}
 
@@ -83,7 +81,6 @@ export const ChatWelcomeTabs = ({userName,onMessageSelect}) => {
                 ))}
 
             </div>
-     
         </div>
     </div>
   )

@@ -16,9 +16,9 @@ export const ChatMessageView = ({user}) => {
         setSelectedMessage("")
     }
   return (
-    <div className='flex flex-col  items-center justify-center h-screen space-y-10'>
-      <ChatWelcomeTabs userName={user?.name} onMessageSelect={handleMessageSelect}  />
-      <ChatMessageForm initialMessage={selectedMessage} onMessageChange={handleMessageChange}/>
+    <div className='flex min-h-full w-full flex-col items-center justify-start gap-6 overflow-y-auto px-3 py-6 sm:px-6 lg:justify-center lg:py-10'>
+      <ChatWelcomeTabs userName={user?.name} onMessageSelect={handleMessageSelect} />
+      <ChatMessageForm initialMessage={selectedMessage} onMessageChange={handleMessageChange} />
     </div>
   )
 }
