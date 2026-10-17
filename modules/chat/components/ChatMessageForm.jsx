@@ -3,9 +3,20 @@ import React,{useEffect, useState} from 'react'
 import { Textarea} from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Send } from 'lucide-react'
-
+import {ModelSelector} from './ModelSelector'
+import {useAIModels} from '../../../modules/ai-agent/hook/ai-agent'
+import { Spinner } from '@/components/ui/spinner'
 export const ChatMessageForm = ({ initialMessage, onMessageChange }) => {
     const [message,setMessage]=useState("")
+    const { data: models, isPending } = useAIModels()
+    const [selectedModel,setSelectedModel]=useState("")
+
+    useEffect(() => {
+        const firstModelId = models?.models?.[0]?.id
+        if (firstModelId && !selectedModel) {
+            setSelectedModel(firstModelId)
+        }
+    }, [models, selectedModel])
 
     useEffect(()=>{
         if(initialMessage){
@@ -37,17 +48,26 @@ export const ChatMessageForm = ({ initialMessage, onMessageChange }) => {
                 />
 
                 <div className='flex items-center justify-between gap-2 border-t border-border px-3 py-2'>
-               <div className='flex items-center gap-1'>
-                     <Button type='button' variant='outline'>Select a model</Button>
-               </div>
-                        <Button type='submit' disabled={!message.trim()} size={"sm"} variant={message.trim()?"default":"ghost"}
-                className={'h-8 w-8 p-0 rounded-full'}
-                >
-                    <Send className='h-4 w-4'/>
-                    <span className='sr-only'>Send message</span>
-                </Button>
+                    <div className='flex items-center gap-1'>
+                        {isPending ? (
+                            <Spinner/>
+                        ) : (
+                            <ModelSelector
+                                models={models?.models || []}
+                                selectedModelId={selectedModel}
+                                onModelSelect={setSelectedModel}
+                                className={'ml-1'}
+                            />
+                        )}
+                    </div>
+
+                    <Button type='submit' disabled={!message.trim()} size={'sm'} variant={message.trim() ? 'default' : 'ghost'}
+                        className={'h-8 w-8 rounded-full p-0'}
+                    >
+                        <Send className='h-4 w-4'/>
+                        <span className='sr-only'>Send message</span>
+                    </Button>
                 </div>
-            
             </div>
         </form>
     </div>

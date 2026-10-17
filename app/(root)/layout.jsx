@@ -16,7 +16,7 @@ const  layout= async({children}) =>{
   }
   const user=await currentUser()
   return (
-    <div className='flex h-screen overflow-hidden'>
+    <div className='flex h-screen w-full overflow-hidden'>
       <ChatSidebar user={user}/>
       <main className='flex min-w-0 flex-1 flex-col overflow-hidden'>
         <Header/>
