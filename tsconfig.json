@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/(root)/page.jsx"  ],
+, "app/(root)/page.jsx", "modules/messages/components/MessageWithForm.jsx"  ],
   "exclude": ["node_modules"]
 }

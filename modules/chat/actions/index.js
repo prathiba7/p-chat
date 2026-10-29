@@ -4,7 +4,7 @@ import db from '@/lib/db'
 import { currentUser } from '../../authentication/action'
 import { MessageRole, MessageType } from '@/src/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
-import { success } from 'better-auth'
+import { includes, success } from 'better-auth'
 
 export const createChatWithMessage = async (values) => {
   try {
@@ -130,4 +130,39 @@ export const deleteChat =async(chatId)=>{
   }
 }
 
+
+export const getChatId =async(chatId)=>{
+  const user =await currentUser()
+  if(!user){
+  
+       return {
+        sucess:false,
+        message:"Unauthorised user"
+      }
+    
+  }
+
+  try{
+    const chat =  await db.chat.findUnique({
+      where:{
+        id:chatId,
+        userId:user.id
+      },
+      include:{
+        messages:true
+      }
+    })
+    return {
+      success:true,
+      message:"chat fetched successfully"
+    }
+  }catch(err){
+    console.log('error',err)
+    return {
+      success:false,
+      message:"Failed to fetch chat"
+    }
+  }
+
+}
 

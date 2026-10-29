@@ -36,3 +36,11 @@ export const useDeleteChat = (chatId)=>{
         }
     })
 }
+
+
+export const useGetChatById = (chatId)=>{
+    return useQuery({
+        queryKey:["chats",chatId],
+        queryFn:()=>useGetChatById(chatId)
+    })
+}
