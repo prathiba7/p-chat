@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import ChatSidebar from '../../modules/chat/components/ChatSidebar'
 import { currentUser }from '../../modules/authentication/action'
 import Header from '../../modules/chat/components/Header'
+import { getAllChats } from '../../modules/chat/actions'
 
 const  layout= async({children}) =>{
   const session=await auth.api.getSession({
@@ -15,9 +16,12 @@ const  layout= async({children}) =>{
     return redirect("/sign-in")
   }
   const user=await currentUser()
+
+  const {data:chats}=await getAllChats()
+
   return (
     <div className='flex h-screen w-full overflow-hidden'>
-      <ChatSidebar user={user}/>
+      <ChatSidebar user={user} chats={chats}/>
       <main className='flex min-w-0 flex-1 flex-col overflow-hidden'>
         <Header/>
         <div className='min-h-0 flex-1 overflow-y-auto'>

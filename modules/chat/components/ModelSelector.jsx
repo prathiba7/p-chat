@@ -69,22 +69,24 @@ export const ModelSelector = ({
   return (
     <div>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant='ghost'
-            role='combobox'
-            aria-expanded={open}
-            className={cn('h-8 justify-between gap-2 px-2 text-xs hover:bg-accent', className)}
-          >
-            <div className='flex min-w-0 items-center gap-1.5'>
-              <Sparkles className='h-3.5 w-3.5 shrink-0 text-muted-foreground' />
-              <span className='truncate font-medium'>
-                {selectedModel?.name || 'Select model'}
-              </span>
-            </div>
-            <ChevronDown className='h-3.5 w-3.5 shrink-0 opacity-50' />
-          </Button>
-        </PopoverTrigger>
+        <PopoverTrigger
+          render={
+            <Button
+              variant='ghost'
+              role='combobox'
+              aria-expanded={open}
+              className={cn('h-8 justify-between gap-2 px-2 text-xs hover:bg-accent', className)}
+            >
+              <div className='flex min-w-0 items-center gap-1.5'>
+                <Sparkles className='h-3.5 w-3.5 shrink-0 text-muted-foreground' />
+                <span className='truncate font-medium'>
+                  {selectedModel?.name || 'Select model'}
+                </span>
+              </div>
+              <ChevronDown className='h-3.5 w-3.5 shrink-0 opacity-50' />
+            </Button>
+          }
+        />
 
         <PopoverContent className='w-[min(90vw,40rem)] p-0' align='start'>
           <div className='border-b p-3'>
